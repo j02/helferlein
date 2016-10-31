@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context="de.bjoern.helferlein.Wohnzimmer">
+
+    <TextView
+        android:text="Esszimmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/name"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Temperatur ist:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:id="@+id/tempIstLabel"
+        android:layout_below="@+id/name"
+        android:layout_alignParentStart="true"
+        android:labelFor="@+id/tempIst" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/tempIst"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:inputType="none"
+        android:text="100"
+        android:layout_alignBaseline="@+id/tempIstLabel"
+        android:layout_alignBottom="@+id/tempIstLabel"
+        android:layout_alignStart="@+id/tempSoll"
+        android:layout_marginEnd="150dp" />
+
+    <TextView
+        android:text="Temperatur soll:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/tempSollLabel"
+        android:layout_below="@+id/tempIstLabel"
+        android:layout_alignParentStart="true"
+        android:labelFor="@+id/tempSoll" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/tempSoll"
+        android:text="100"
+        android:layout_alignBaseline="@+id/tempSollLabel"
+        android:layout_alignBottom="@+id/tempSollLabel"
+        android:layout_toEndOf="@+id/tempSollLabel"
+        android:maxLength="4"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="150dp" />
+
+    <Button
+        android:text="Set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/setTempButton"
+        android:layout_alignBaseline="@+id/tempSoll"
+        android:layout_alignParentRight="false"
+        android:layout_marginLeft="100dp"
+        android:layout_alignLeft="@+id/tempSoll" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="false"
+        android:id="@+id/radioGroup"
+        android:layout_below="@+id/setTempButton"
+        android:layout_alignParentStart="false"
+        android:layout_alignLeft="@+id/tempSoll">
+
+        <RadioButton
+            android:text="Warm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonWarm"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Kalt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonKalt"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1" />
+    </RadioGroup>
+
+</RelativeLayout>

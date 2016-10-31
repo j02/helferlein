@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <Button
+        android:text="Abstellkammer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="false"
+        android:layout_marginTop="64dp"
+        android:id="@+id/abstellkammer"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Arbeitszimmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/abstellkammer"
+        android:id="@+id/arbeitszimmer"
+        android:layout_alignParentStart="false"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Badezimmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/arbeitszimmer"
+        android:id="@+id/badezimmer"
+        android:layout_alignParentStart="false"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Esszimmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/badezimmer"
+        android:layout_alignParentStart="false"
+        android:id="@+id/esszimmer"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Schlafzimmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/esszimmer"
+        android:id="@+id/schlafzimmer"
+        android:layout_alignParentStart="false"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="TV und Musik"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/schlafzimmer"
+        android:layout_alignParentStart="false"
+        android:id="@+id/tvundmusik"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Wohnzimmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvundmusik"
+        android:id="@+id/wohnzimmer"
+        android:layout_alignParentStart="false"
+        android:layout_centerHorizontal="true" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="false"
+        android:layout_toEndOf="@+id/textWohnung"
+        android:id="@+id/radioGroup">
+
+        <RadioButton
+            android:text="Warm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonWarm"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Kalt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonKalt"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1" />
+    </RadioGroup>
+
+    <TextView
+        android:text="Wohnung:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textWohnung"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:text="Einstellungen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/wohnzimmer"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/settings" />
+</RelativeLayout>
