@@ -47,11 +47,15 @@ public class Main extends Zimmer {
                         try {
                             if (Float.toString(jObject.getJSONObject("21").getInt("hr20_tempset") / 100F).equals(map.get("wohnzimmerWarm"))
                                     && Float.toString(jObject.getJSONObject("24").getInt("hr20_tempset") / 100F).equals(map.get("esszimmerWarm"))
-                                    && Float.toString(jObject.getJSONObject("22").getInt("hr20_tempset") / 100F).equals(map.get("schlafzimmerWarm"))) {
+                                    && Float.toString(jObject.getJSONObject("22").getInt("hr20_tempset") / 100F).equals(map.get("schlafzimmerWarm"))
+                                    && Float.toString(jObject.getJSONObject("23").getInt("hr20_tempset") / 100F).equals(map.get("badezimmerWarm"))
+                                    && Float.toString(jObject.getJSONObject("18").getInt("hr20_tempset") / 100F).equals(map.get("arbeitszimmerWarm"))) {
                                 ((RadioGroup) findViewById(R.id.radioGroup)).check(R.id.buttonWarm);
                             } else if (Float.toString(jObject.getJSONObject("21").getInt("hr20_tempset") / 100F).equals(map.get("wohnzimmerKalt"))
                                     && Float.toString(jObject.getJSONObject("24").getInt("hr20_tempset") / 100F).equals(map.get("esszimmerKalt"))
-                                    && Float.toString(jObject.getJSONObject("22").getInt("hr20_tempset") / 100F).equals(map.get("schlafzimmerKalt"))) {
+                                    && Float.toString(jObject.getJSONObject("22").getInt("hr20_tempset") / 100F).equals(map.get("schlafzimmerKalt"))
+                                    && Float.toString(jObject.getJSONObject("23").getInt("hr20_tempset") / 100F).equals(map.get("badezimmerKalt"))
+                                    && Float.toString(jObject.getJSONObject("18").getInt("hr20_tempset") / 100F).equals(map.get("arbeitszimmerKalt"))) {
                                 ((RadioGroup) findViewById(R.id.radioGroup)).check(R.id.buttonKalt);
                             } else {
                                 ((RadioGroup) findViewById(R.id.radioGroup)).clearCheck();

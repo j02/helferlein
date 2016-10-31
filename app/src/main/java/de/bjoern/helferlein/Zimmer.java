@@ -87,7 +87,7 @@ public abstract class Zimmer extends Activity {
                         });
                     }
                     if (getTempSoll() != null
-                            && !getTempSoll().hasFocus() && Float.parseFloat(getTempSoll().getText().toString()) != jObject.getInt("hr20_tempset") / 100F) {
+                            && Float.parseFloat(getTempSoll().getText().toString()) != jObject.getInt("hr20_tempset") / 100F) {
                         getTempSoll().post(new Runnable() {
                             @Override
                             public void run() {

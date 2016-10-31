@@ -62,7 +62,7 @@
             android:selectAllOnFocus="true"
             android:inputType="numberDecimal"
             android:title="Warm"
-            android:key="badeimmerWarm" />
+            android:key="badezimmerWarm" />
         <EditTextPreference
             android:defaultValue="17.0"
             android:selectAllOnFocus="true"
