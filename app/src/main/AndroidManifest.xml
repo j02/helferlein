@@ -10,23 +10,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="de.bjoern.helferlein.Wohnzimmer"
-            android:parentActivityName="de.bjoern.helferlein.Main"/>
-        <activity android:name="de.bjoern.helferlein.Abstellkammer"
-            android:parentActivityName="de.bjoern.helferlein.Main"/>
-        <activity android:name="de.bjoern.helferlein.Arbeitszimmer"
-            android:parentActivityName="de.bjoern.helferlein.Main"/>
-        <activity android:name="de.bjoern.helferlein.Badezimmer"
-            android:parentActivityName="de.bjoern.helferlein.Main"/>
-        <activity android:name="de.bjoern.helferlein.Esszimmer"
-            android:parentActivityName="de.bjoern.helferlein.Main"/>
-        <activity android:name="de.bjoern.helferlein.Schlafzimmer"
-            android:parentActivityName="de.bjoern.helferlein.Main"/>
-        <activity android:name="de.bjoern.helferlein.TVundMusik"
-            android:parentActivityName="de.bjoern.helferlein.Main"/>
         <activity android:name=".SettingsActivity"
-            android:parentActivityName="de.bjoern.helferlein.Main" />
-        <activity android:name="de.bjoern.helferlein.Main">
+            android:parentActivityName="de.bjoern.helferlein.Main_Tabbed" />
+        <activity android:name="de.bjoern.helferlein.Main_Tabbed">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

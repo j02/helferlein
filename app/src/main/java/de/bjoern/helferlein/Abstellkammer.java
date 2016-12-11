@@ -1,20 +1,25 @@
 package de.bjoern.helferlein;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
-public class Abstellkammer extends Zimmer {
+public class Abstellkammer extends Zimmer_Fragment {
     //private static final String TAG = "Abstellkammer";
     private static final String ID = "20";
     private ToggleButton relais1Button, relais2Button, relais3Button;
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_abstellkammer);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.activity_abstellkammer, container, false);
 
-        relais1Button = (ToggleButton) findViewById(R.id.relais1Button);
+        relais1Button = (ToggleButton) view.findViewById(R.id.relais1Button);
         relais1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -27,7 +32,7 @@ public class Abstellkammer extends Zimmer {
             }
         });
 
-        relais2Button = (ToggleButton) findViewById(R.id.relais2Button);
+        relais2Button = (ToggleButton) view.findViewById(R.id.relais2Button);
         relais2Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,7 +45,7 @@ public class Abstellkammer extends Zimmer {
             }
         });
 
-        relais3Button = (ToggleButton) findViewById(R.id.relais3Button);
+        relais3Button = (ToggleButton) view.findViewById(R.id.relais3Button);
         relais3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,12 +59,19 @@ public class Abstellkammer extends Zimmer {
         });
 
         try {
-            relais1Button.setChecked(getIntent().getIntArrayExtra("relais")[0] == 1);
-            relais2Button.setChecked(getIntent().getIntArrayExtra("relais")[1] == 1);
-            relais3Button.setChecked(getIntent().getIntArrayExtra("relais")[2] == 1);
+            relais1Button.setChecked(getActivity().getIntent().getIntArrayExtra("relais")[0] == 1);
+            relais2Button.setChecked(getActivity().getIntent().getIntArrayExtra("relais")[1] == 1);
+            relais3Button.setChecked(getActivity().getIntent().getIntArrayExtra("relais")[2] == 1);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+
+        return view;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override

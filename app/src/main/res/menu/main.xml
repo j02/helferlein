@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Warm"
+        android:checkable="true"
+        android:id="@+id/warm"
+        app:showAsAction="always" />
+    <item android:title="Kalt"
+        android:id="@+id/kalt"
+        android:checkable="true"
+        app:showAsAction="always" />
+    <item
+        android:title="Settings"
+        android:icon="@drawable/settings"
+        android:id="@+id/settings"
+        app:showAsAction="always" />
+
+</menu>

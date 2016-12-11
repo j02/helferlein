@@ -3,31 +3,44 @@ package de.bjoern.helferlein;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.ToggleButton;
 
 import java.util.HashMap;
 
-public class Badezimmer extends Zimmer {
+public class Badezimmer extends Zimmer_Fragment {
     //private static final String TAG = "Badezimmer";
     private static final String ID = "23";
+    RelativeLayout rt;
     private EditText tempIst, tempSoll;
     private final HashMap<String, String> map = new HashMap<>();
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_badezimmer);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.activity_badezimmer, container, false);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         map.put("warm", prefs.getString("badezimmerWarm", ""));
         map.put("kalt", prefs.getString("badezimmerKalt", ""));
-        tempIst = (EditText) findViewById(R.id.tempIst);
-        tempSoll = (EditText) findViewById(R.id.tempSoll);
+        tempIst = (EditText) view.findViewById(R.id.tempIst);
+        tempSoll = (EditText) view.findViewById(R.id.tempSoll);
 
-        Button setTempButton = (Button) findViewById(R.id.setTempButton);
+        rt = (RelativeLayout) view.findViewById(R.id.rt);
+        rt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                rt.requestFocus();
+            }
+        });
+
+        Button setTempButton = (Button) view.findViewById(R.id.setTempButton);
         setTempButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,19 +53,19 @@ public class Badezimmer extends Zimmer {
             }
         });
 
-        RadioButton buttonWarm = (RadioButton) findViewById(R.id.buttonWarm);
+        RadioButton buttonWarm = (RadioButton) view.findViewById(R.id.buttonWarm);
         buttonWarm.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
                             setTemp(ID, map.get("warm"));
-                            findViewById(R.id.radioGroup).post(new Runnable() {
+                            view.findViewById(R.id.radioGroup).post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    ((RadioGroup) findViewById(R.id.radioGroup)).check(R.id.buttonWarm);
+                                    ((RadioGroup) view.findViewById(R.id.radioGroup)).check(R.id.buttonWarm);
                                 }
                             });
                         } catch (NullPointerException e) {
@@ -63,19 +76,19 @@ public class Badezimmer extends Zimmer {
             }
         });
 
-        RadioButton buttonKalt = (RadioButton) findViewById(R.id.buttonKalt);
+        RadioButton buttonKalt = (RadioButton) view.findViewById(R.id.buttonKalt);
         buttonKalt.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
                             setTemp(ID, map.get("kalt"));
-                            findViewById(R.id.radioGroup).post(new Runnable() {
+                            view.findViewById(R.id.radioGroup).post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    ((RadioGroup) findViewById(R.id.radioGroup)).check(R.id.buttonKalt);
+                                    ((RadioGroup) view.findViewById(R.id.radioGroup)).check(R.id.buttonKalt);
                                 }
                             });
                         } catch (NullPointerException e) {
@@ -87,13 +100,20 @@ public class Badezimmer extends Zimmer {
         });
 
         try {
-            tempIst.setText(getIntent().getStringArrayExtra("temp")[0]);
-            tempSoll.setText(getIntent().getStringArrayExtra("temp")[1]);
-            if (tempSoll.getText().toString().equals(map.get("warm"))) ((RadioGroup) findViewById(R.id.radioGroup)).check(R.id.buttonWarm);
-            if (tempSoll.getText().toString().equals(map.get("kalt"))) ((RadioGroup) findViewById(R.id.radioGroup)).check(R.id.buttonKalt);
+            tempIst.setText(getActivity().getIntent().getStringArrayExtra("temp")[0]);
+            tempSoll.setText(getActivity().getIntent().getStringArrayExtra("temp")[1]);
+            if (tempSoll.getText().toString().equals(map.get("warm"))) ((RadioGroup) view.findViewById(R.id.radioGroup)).check(R.id.buttonWarm);
+            if (tempSoll.getText().toString().equals(map.get("kalt"))) ((RadioGroup) view.findViewById(R.id.radioGroup)).check(R.id.buttonKalt);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+
+        return view;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override

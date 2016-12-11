@@ -89,10 +89,10 @@ public class Main extends Zimmer {
         findViewById(R.id.arbeitszimmer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(Main.this, Schlafzimmer.class);
+                Intent myIntent = new Intent(Main.this, Arbeitszimmer.class);
                 int[] intsRelais = new int[4];
                 try {
-                    for (int i = 0; i < 4; i++) intsRelais[i] = jObject.getJSONObject("22").getJSONArray("relais").getJSONObject(i).getInt("state");
+                    for (int i = 0; i < 4; i++) intsRelais[i] = jObject.getJSONObject("18").getJSONArray("relais").getJSONObject(i).getInt("state");
                     myIntent.putExtra("temp", new String[] {
                             Float.toString(jObject.getJSONObject("18").getInt("hr20_tempis") / 100F),
                             Float.toString(jObject.getJSONObject("18").getInt("hr20_tempset") / 100F),
@@ -113,7 +113,7 @@ public class Main extends Zimmer {
                 Intent myIntent = new Intent(Main.this, Badezimmer.class);
                 int[] intsRelais = new int[4];
                 try {
-                    for (int i = 0; i < 4; i++) intsRelais[i] = jObject.getJSONObject("22").getJSONArray("relais").getJSONObject(i).getInt("state");
+                    for (int i = 0; i < 4; i++) intsRelais[i] = jObject.getJSONObject("23").getJSONArray("relais").getJSONObject(i).getInt("state");
                     myIntent.putExtra("temp", new String[] {
                             Float.toString(jObject.getJSONObject("23").getInt("hr20_tempis") / 100F),
                             Float.toString(jObject.getJSONObject("23").getInt("hr20_tempset") / 100F),

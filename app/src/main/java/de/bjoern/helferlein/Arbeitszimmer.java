@@ -3,34 +3,47 @@ package de.bjoern.helferlein;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import java.util.HashMap;
 
-public class Arbeitszimmer extends Zimmer {
+public class Arbeitszimmer extends Zimmer_Fragment {
     //private static final String TAG = "Arbeitszimmer";
     private static final String ID = "18";
+    RelativeLayout rt;
     private EditText tempIst, tempSoll;
     private ToggleButton relais1Button, relais2Button, relais3Button, relais4Button;
     private final HashMap<String, String> map = new HashMap<>();
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_arbeitszimmer);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.activity_arbeitszimmer, container, false);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         map.put("warm", prefs.getString("arbeitszimmerWarm", ""));
         map.put("kalt", prefs.getString("arbeitszimmerKalt", ""));
-        tempIst = (EditText) findViewById(R.id.tempIst);
-        tempSoll = (EditText) findViewById(R.id.tempSoll);
-        TextView fensterStatus = (TextView) findViewById(R.id.FensterStatus);
+        tempIst = (EditText) view.findViewById(R.id.tempIst);
+        tempSoll = (EditText) view.findViewById(R.id.tempSoll);
+        TextView fensterStatus = (TextView) view.findViewById(R.id.FensterStatus);
 
-        Button setTempButton = (Button) findViewById(R.id.setTempButton);
+        rt = (RelativeLayout) view.findViewById(R.id.rt);
+        rt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                rt.requestFocus();
+            }
+        });
+
+        Button setTempButton = (Button) view.findViewById(R.id.setTempButton);
         setTempButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +56,7 @@ public class Arbeitszimmer extends Zimmer {
             }
         });
 
-        relais1Button = (ToggleButton) findViewById(R.id.relais1Button);
+        relais1Button = (ToggleButton) view.findViewById(R.id.relais1Button);
         relais1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +69,7 @@ public class Arbeitszimmer extends Zimmer {
             }
         });
 
-        relais2Button = (ToggleButton) findViewById(R.id.relais2Button);
+        relais2Button = (ToggleButton) view.findViewById(R.id.relais2Button);
         relais2Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +82,7 @@ public class Arbeitszimmer extends Zimmer {
             }
         });
 
-        relais3Button = (ToggleButton) findViewById(R.id.relais3Button);
+        relais3Button = (ToggleButton) view.findViewById(R.id.relais3Button);
         relais3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +95,7 @@ public class Arbeitszimmer extends Zimmer {
             }
         });
 
-        relais4Button = (ToggleButton) findViewById(R.id.relais4Button);
+        relais4Button = (ToggleButton) view.findViewById(R.id.relais4Button);
         relais4Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,19 +108,19 @@ public class Arbeitszimmer extends Zimmer {
             }
         });
 
-        RadioButton buttonWarm = (RadioButton) findViewById(R.id.buttonWarm);
+        RadioButton buttonWarm = (RadioButton) view.findViewById(R.id.buttonWarm);
         buttonWarm.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
                             setTemp(ID, map.get("warm"));
-                            findViewById(R.id.radioGroup).post(new Runnable() {
+                            view.findViewById(R.id.radioGroup).post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    ((RadioGroup) findViewById(R.id.radioGroup)).check(R.id.buttonWarm);
+                                    ((RadioGroup) view.findViewById(R.id.radioGroup)).check(R.id.buttonWarm);
                                 }
                             });
                         } catch (NullPointerException e) {
@@ -118,19 +131,19 @@ public class Arbeitszimmer extends Zimmer {
             }
         });
 
-        RadioButton buttonKalt = (RadioButton) findViewById(R.id.buttonKalt);
+        RadioButton buttonKalt = (RadioButton) view.findViewById(R.id.buttonKalt);
         buttonKalt.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
                             setTemp(ID, map.get("kalt"));
-                            findViewById(R.id.radioGroup).post(new Runnable() {
+                            view.findViewById(R.id.radioGroup).post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    ((RadioGroup) findViewById(R.id.radioGroup)).check(R.id.buttonKalt);
+                                    ((RadioGroup) view.findViewById(R.id.radioGroup)).check(R.id.buttonKalt);
                                 }
                             });
                         } catch (NullPointerException e) {
@@ -142,18 +155,25 @@ public class Arbeitszimmer extends Zimmer {
         });
 
         try {
-            tempIst.setText(getIntent().getStringArrayExtra("temp")[0]);
-            tempSoll.setText(getIntent().getStringArrayExtra("temp")[1]);
-            if (tempSoll.getText().toString().equals(map.get("warm"))) ((RadioGroup) findViewById(R.id.radioGroup)).check(R.id.buttonWarm);
-            if (tempSoll.getText().toString().equals(map.get("kalt"))) ((RadioGroup) findViewById(R.id.radioGroup)).check(R.id.buttonKalt);
-            fensterStatus.setText(getIntent().getStringArrayExtra("temp")[2]);
-            relais1Button.setChecked(getIntent().getIntArrayExtra("relais")[0] == 1);
-            relais2Button.setChecked(getIntent().getIntArrayExtra("relais")[1] == 1);
-            relais3Button.setChecked(getIntent().getIntArrayExtra("relais")[2] == 1);
-            relais4Button.setChecked(getIntent().getIntArrayExtra("relais")[3] == 1);
+            tempIst.setText(getActivity().getIntent().getStringArrayExtra("temp")[0]);
+            tempSoll.setText(getActivity().getIntent().getStringArrayExtra("temp")[1]);
+            if (tempSoll.getText().toString().equals(map.get("warm"))) ((RadioGroup) view.findViewById(R.id.radioGroup)).check(R.id.buttonWarm);
+            if (tempSoll.getText().toString().equals(map.get("kalt"))) ((RadioGroup) view.findViewById(R.id.radioGroup)).check(R.id.buttonKalt);
+            fensterStatus.setText(getActivity().getIntent().getStringArrayExtra("temp")[2]);
+            relais1Button.setChecked(getActivity().getIntent().getIntArrayExtra("relais")[0] == 1);
+            relais2Button.setChecked(getActivity().getIntent().getIntArrayExtra("relais")[1] == 1);
+            relais3Button.setChecked(getActivity().getIntent().getIntArrayExtra("relais")[2] == 1);
+            relais4Button.setChecked(getActivity().getIntent().getIntArrayExtra("relais")[3] == 1);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+
+        return view;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
