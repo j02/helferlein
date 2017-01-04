@@ -10,7 +10,7 @@
     android:focusableInTouchMode="true">
 
     <TextView
-        android:text="Badezimmer"
+        android:text="Arbeitszimmer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/name"
@@ -76,6 +76,91 @@
         android:layout_marginLeft="100dp"
         android:layout_alignLeft="@+id/tempSoll" />
 
+    <TextView
+        android:text="Switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/relais1Label"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="false"
+        android:layout_centerInParent="false"
+        android:layout_marginTop="200dp" />
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/relais1Button"
+        android:textAllCaps="false"
+        android:layout_alignBaseline="@+id/relais1Label"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="170dp" />
+
+    <TextView
+        android:text="Musikanlage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relais1Button"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/relais2Label" />
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/relais2Button"
+        android:layout_alignBaseline="@+id/relais2Label"
+        android:layout_alignEnd="@+id/relais1Button" />
+
+    <TextView
+        android:text="Dockstar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relais2Button"
+        android:layout_marginTop="20dp"
+        android:id="@+id/relais3Label"
+        android:layout_alignParentStart="true" />
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/relais3Button"
+        android:layout_alignBaseline="@+id/relais3Label"
+        android:layout_alignEnd="@+id/relais2Button" />
+
+    <TextView
+        android:text="Festplatten"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relais3Button"
+        android:layout_marginTop="20dp"
+        android:id="@+id/relais4Label"
+        android:layout_alignParentStart="true" />
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/relais4Button"
+        android:layout_alignEnd="@+id/relais3Button"
+        android:layout_alignBaseline="@+id/relais4Label" />
+
+    <TextView
+        android:text="Fenster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relais4Button"
+        android:layout_alignParentStart="true"
+        android:id="@+id/FensterLabel"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:text="Zu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/FensterStatus"
+        android:layout_alignBaseline="@+id/FensterLabel"
+        android:layout_alignStart="@+id/relais4Button" />
+
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -102,5 +187,25 @@
             android:layout_marginLeft="20dp"
             android:layout_weight="1" />
     </RadioGroup>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/progress"
+        android:visibility="gone"  />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:id="@+id/progressTemp"
+        android:layout_alignTop="@+id/tempSollLabel"
+        android:layout_toEndOf="@+id/setTempButton"
+        android:layout_marginLeft="5dp"
+        android:visibility="gone" />
 
 </RelativeLayout>

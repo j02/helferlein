@@ -16,12 +16,8 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONException;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -33,8 +29,6 @@ import java.util.List;
 
 public class Main_Tabbed extends AppCompatActivity {
     private static final String TAG = "Main_Tabbed";
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
     private String username, password;
     private final HashMap<String, String> map = new HashMap<>();
 
@@ -47,6 +41,10 @@ public class Main_Tabbed extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
         switch (item.getItemId()) {
+            /*case R.id.cron:
+                Intent i = new Intent(Main_Tabbed.this, Cron.class);
+                startActivity(i);
+                return true;*/
             case R.id.warm:
                 new Thread(new Runnable() {
                 @Override
@@ -110,6 +108,9 @@ public class Main_Tabbed extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Toolbar toolbar;
+        TabLayout tabLayout;
+        ViewPager viewPager;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_tabbed);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -125,6 +126,8 @@ public class Main_Tabbed extends AppCompatActivity {
         map.put("badezimmerKalt", prefs.getString("badezimmerKalt", ""));
         map.put("arbeitszimmerWarm", prefs.getString("arbeitszimmerWarm", ""));
         map.put("arbeitszimmerKalt", prefs.getString("arbeitszimmerKalt", ""));
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -143,7 +146,7 @@ public class Main_Tabbed extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-    void setTemp(String address, String temp) {
+    private void setTemp(String address, String temp) {
         Log.v(TAG, "setTemp");
         temp = temp.replaceAll("[^0-9]", "");
         if (temp.length() < 3) temp += "0";
@@ -163,7 +166,7 @@ public class Main_Tabbed extends AppCompatActivity {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        public ViewPagerAdapter(FragmentManager manager) {
+        ViewPagerAdapter(FragmentManager manager) {
             super(manager);
         }
 
@@ -177,7 +180,7 @@ public class Main_Tabbed extends AppCompatActivity {
             return mFragmentList.size();
         }
 
-        public void addFragment(Fragment fragment, String title) {
+        void addFragment(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }

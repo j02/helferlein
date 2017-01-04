@@ -66,4 +66,13 @@
         android:layout_alignBaseline="@+id/relais3Label"
         android:layout_alignEnd="@+id/relais2Button" />
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/progress"
+        android:visibility="gone"  />
+
 </RelativeLayout>

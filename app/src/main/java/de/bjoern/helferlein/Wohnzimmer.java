@@ -1,41 +1,43 @@
 package de.bjoern.helferlein;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-
 import java.util.HashMap;
 
 public class Wohnzimmer extends Zimmer_Fragment {
     //private static final String TAG = "Wohnzimmer";
 	private static final String ID = "21";
-    RelativeLayout rt;
+    private RelativeLayout rt;
     private EditText tempIst, tempSoll;
     private ToggleButton relais1Button, relais2Button, relais3Button, relais4Button;
+    private ProgressBar progress, progressTemp;
     private final HashMap<String, String> map = new HashMap<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.activity_wohnzimmer, container, false);
+        View view = inflater.inflate(R.layout.fragment_wohnzimmer, container, false);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         map.put("warm", prefs.getString("wohnzimmerWarm", ""));
         map.put("kalt", prefs.getString("wohnzimmerKalt", ""));
 		tempIst = (EditText) view.findViewById(R.id.tempIst);
         tempSoll = (EditText) view.findViewById(R.id.tempSoll);
         TextView fensterStatus = (TextView) view.findViewById(R.id.FensterStatus);
+
+        progress = (ProgressBar) view.findViewById(R.id.progress);
+        progressTemp = (ProgressBar) view.findViewById(R.id.progressTemp);
 
         rt = (RelativeLayout) view.findViewById(R.id.rt);
         rt.setOnClickListener(new View.OnClickListener() {
@@ -176,11 +178,6 @@ public class Wohnzimmer extends Zimmer_Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public EditText getTempIst() { return tempIst; }
 
     @Override
@@ -200,4 +197,10 @@ public class Wohnzimmer extends Zimmer_Fragment {
 
     @Override
     public String getID() { return ID; }
+
+    @Override
+    public ProgressBar getProgressBar() { return progress; }
+
+    @Override
+    public ProgressBar getProgressBarTemp() { return progressTemp; }
 }

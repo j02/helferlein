@@ -8,26 +8,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-
 import java.util.HashMap;
 
 public class Arbeitszimmer extends Zimmer_Fragment {
     //private static final String TAG = "Arbeitszimmer";
     private static final String ID = "18";
-    RelativeLayout rt;
+    private RelativeLayout rt;
     private EditText tempIst, tempSoll;
     private ToggleButton relais1Button, relais2Button, relais3Button, relais4Button;
+    private ProgressBar progress, progressTemp;
     private final HashMap<String, String> map = new HashMap<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.activity_arbeitszimmer, container, false);
+        View view = inflater.inflate(R.layout.fragment_arbeitszimmer, container, false);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         map.put("warm", prefs.getString("arbeitszimmerWarm", ""));
         map.put("kalt", prefs.getString("arbeitszimmerKalt", ""));
@@ -42,6 +43,9 @@ public class Arbeitszimmer extends Zimmer_Fragment {
                 rt.requestFocus();
             }
         });
+
+        progress = (ProgressBar) view.findViewById(R.id.progress);
+        progressTemp = (ProgressBar) view.findViewById(R.id.progressTemp);
 
         Button setTempButton = (Button) view.findViewById(R.id.setTempButton);
         setTempButton.setOnClickListener(new View.OnClickListener() {
@@ -172,11 +176,6 @@ public class Arbeitszimmer extends Zimmer_Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public EditText getTempIst() { return tempIst; }
 
     @Override
@@ -196,4 +195,10 @@ public class Arbeitszimmer extends Zimmer_Fragment {
 
     @Override
     public String getID() { return ID; }
+
+    @Override
+    public ProgressBar getProgressBar() { return progress; }
+
+    @Override
+    public ProgressBar getProgressBarTemp() { return progressTemp; }
 }

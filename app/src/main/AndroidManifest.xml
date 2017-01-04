@@ -3,6 +3,7 @@
     package="de.bjoern.helferlein">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -10,14 +11,23 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SettingsActivity"
-            android:parentActivityName="de.bjoern.helferlein.Main_Tabbed" />
-        <activity android:name="de.bjoern.helferlein.Main_Tabbed">
+        <activity
+            android:name=".SettingsActivity"
+            android:parentActivityName=".Main_Tabbed" />
+        <activity
+            android:name=".Cron"
+            android:parentActivityName=".Main_Tabbed" />
+        <activity android:name=".Main_Tabbed">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".Alarm"
+            android:process=":remote" />
     </application>
 
 </manifest>

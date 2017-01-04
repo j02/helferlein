@@ -5,19 +5,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 import android.widget.ToggleButton;
 
 public class Abstellkammer extends Zimmer_Fragment {
     //private static final String TAG = "Abstellkammer";
     private static final String ID = "20";
     private ToggleButton relais1Button, relais2Button, relais3Button;
+    private ProgressBar progress;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.activity_abstellkammer, container, false);
+        View view = inflater.inflate(R.layout.fragment_abstellkammer, container, false);
+
+        progress = (ProgressBar) view.findViewById(R.id.progress);
 
         relais1Button = (ToggleButton) view.findViewById(R.id.relais1Button);
         relais1Button.setOnClickListener(new View.OnClickListener() {
@@ -70,11 +72,6 @@ public class Abstellkammer extends Zimmer_Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public EditText getTempIst() { return null; }
 
     @Override
@@ -94,4 +91,10 @@ public class Abstellkammer extends Zimmer_Fragment {
 
     @Override
     public String getID() { return ID; }
+
+    @Override
+    public ProgressBar getProgressBar() { return progress; }
+
+    @Override
+    public ProgressBar getProgressBarTemp() { return null; }
 }

@@ -6,8 +6,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 import android.widget.ToggleButton;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +32,8 @@ public abstract class Zimmer_Fragment extends Fragment {
     protected abstract ToggleButton getRelais3Button();
     protected abstract ToggleButton getRelais4Button();
     protected abstract String getID();
+    protected abstract ProgressBar getProgressBar();
+    protected abstract ProgressBar getProgressBarTemp();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +58,7 @@ public abstract class Zimmer_Fragment extends Fragment {
         parseJSON(30 * 60 * 1000);
     }
 
-    void parseJSON(int delay) {
+    private void parseJSON(int delay) {
         if (timer != null) {
             timer.cancel();
             timer.purge();
@@ -66,6 +69,14 @@ public abstract class Zimmer_Fragment extends Fragment {
             @Override
             public void run() {
                 try {
+                    if (getProgressBar() != null) {
+                        getProgressBar().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                getProgressBar().setVisibility(View.VISIBLE);
+                            }
+                        });
+                    }
                     jObject = getJSONObject().getJSONObject(getID());
                     if (getTempIst() != null
                             && Float.parseFloat(getTempIst().getText().toString()) != jObject.getInt("hr20_tempis") / 100F) {
@@ -152,14 +163,22 @@ public abstract class Zimmer_Fragment extends Fragment {
                     }
                 } catch (JSONException | NullPointerException e) {
                     e.printStackTrace();
+                } finally {
+                    if (getProgressBar() != null) {
+                        getProgressBar().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                getProgressBar().setVisibility(View.GONE);
+                            }
+                        });
+                    }
                 }
             }
         };
-
         timer.scheduleAtFixedRate(task, delay, delay);
     }
 
-    JSONObject getJSONObject() {
+    private JSONObject getJSONObject() {
         //Log.v(TAG, "getJSONObject");
         JSONObject jObject = null;
         String encoding = Base64.encodeToString((username + ":" + password).getBytes(), Base64.NO_WRAP);
@@ -201,8 +220,14 @@ public abstract class Zimmer_Fragment extends Fragment {
 
     void setTemp(String address, String temp) {
         Log.v(TAG, "setTemp");
+        getProgressBarTemp().post(new Runnable() {
+            @Override
+            public void run() {
+                getProgressBarTemp().setVisibility(View.VISIBLE);
+            }
+        });
         temp = temp.replaceAll("[^0-9]", "");
-        if (temp.length() < 3) temp += "0";
+        while (temp.length() < 3) temp += "0";
         String encoding = Base64.encodeToString((username + ":" + password).getBytes(), Base64.NO_WRAP);
         HttpURLConnection connection;
         try {
@@ -212,6 +237,13 @@ public abstract class Zimmer_Fragment extends Fragment {
             in.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            getProgressBarTemp().post(new Runnable() {
+                @Override
+                public void run() {
+                    getProgressBarTemp().setVisibility(View.GONE);
+                }
+            });
         }
     }
 }
