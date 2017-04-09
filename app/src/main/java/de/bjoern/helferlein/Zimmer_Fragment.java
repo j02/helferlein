@@ -55,7 +55,7 @@ public abstract class Zimmer_Fragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        parseJSON(30 * 60 * 1000);
+        //parseJSON(30 * 60 * 1000);
     }
 
     private void parseJSON(int delay) {

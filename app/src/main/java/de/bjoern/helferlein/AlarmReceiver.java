@@ -15,8 +15,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class Alarm extends BroadcastReceiver { //TODO
-    private static final String TAG = "Alarm";
+public class AlarmReceiver extends BroadcastReceiver { //TODO
+    private static final String TAG = "AlarmReceiver";
     private String username, password;
 
     @Override

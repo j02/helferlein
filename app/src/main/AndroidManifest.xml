@@ -15,7 +15,7 @@
             android:name=".SettingsActivity"
             android:parentActivityName=".Main_Tabbed" />
         <activity
-            android:name=".Cron"
+            android:name=".AlarmSetter"
             android:parentActivityName=".Main_Tabbed" />
         <activity android:name=".Main_Tabbed">
             <intent-filter>
@@ -26,7 +26,7 @@
         </activity>
 
         <receiver
-            android:name=".Alarm"
+            android:name=".AlarmReceiver"
             android:process=":remote" />
     </application>
 

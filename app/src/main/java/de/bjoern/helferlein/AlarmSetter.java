@@ -15,8 +15,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import java.util.Calendar;
 
-public class Cron extends AppCompatActivity { //TODO
-    //private static final String TAG = "Cron";
+public class AlarmSetter extends AppCompatActivity { //TODO
+    //private static final String TAG = "AlarmSetter";
     private EditText m, h, dom, mon, dow, temp;
     private int zimmer_id;
     private Spinner dropdown;
@@ -25,7 +25,7 @@ public class Cron extends AppCompatActivity { //TODO
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cron);
+        setContentView(R.layout.activity_alarm);
         dropdown = (Spinner) findViewById(R.id.spinner);
         m = (EditText) findViewById(R.id.m_0);
         h = (EditText) findViewById(R.id.h_0);
@@ -83,7 +83,7 @@ public class Cron extends AppCompatActivity { //TODO
     {
         int interval = 0;
         final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent i = new Intent(context, Alarm.class);
+        Intent i = new Intent(context, AlarmReceiver.class);
         i.putExtra("zimmer", zimmer_id);
         i.putExtra("temp", temp.getText().toString());
         final PendingIntent pIntent = PendingIntent.getBroadcast(context, 0, i, 0); //different IDs for different alarms

@@ -41,8 +41,8 @@ public class Main_Tabbed extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
         switch (item.getItemId()) {
-            /*case R.id.cron:
-                Intent i = new Intent(Main_Tabbed.this, Cron.class);
+            /*case R.id.activity_alarm:
+                Intent i = new Intent(Main_Tabbed.this, AlarmSetter.class);
                 startActivity(i);
                 return true;*/
             case R.id.warm:
