@@ -50,18 +50,21 @@ public class Main_Tabbed extends AppCompatActivity {
                 @Override
                 public void run() {
                     try {
-                        setTemp("21", map.get("wohnzimmerWarm")); //Wohnzimmer
-                        setTemp("24", map.get("esszimmerWarm")); //Esszimmer
-                        setTemp("22", map.get("schlafzimmerWarm")); //Schlafzimmer
-                        setTemp("23", map.get("badezimmerWarm")); //Badezimmer
-                        setTemp("18", map.get("arbeitszimmerWarm")); //Arbeitszimmer
-                        findViewById(R.id.warm).post(new Runnable() {
-                            @Override
-                            public void run() {
-                                ((TextView) findViewById(R.id.warm)).setTextColor(Color.RED);
-                                ((TextView) findViewById(R.id.kalt)).setTextColor(Color.WHITE);
-                            }
-                        });
+                        if (
+                                setTemp("21", map.get("wohnzimmerWarm")) //Wohnzimmer
+                                && setTemp("24", map.get("esszimmerWarm")) //Esszimmer
+                                && setTemp("22", map.get("schlafzimmerWarm")) //Schlafzimmer
+                                && setTemp("23", map.get("badezimmerWarm")) //Badezimmer
+                                && setTemp("18", map.get("arbeitszimmerWarm")) //Arbeitszimmer
+                        ) {
+                            findViewById(R.id.warm).post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ((TextView) findViewById(R.id.warm)).setTextColor(Color.RED);
+                                    ((TextView) findViewById(R.id.kalt)).setTextColor(Color.WHITE);
+                                }
+                            });
+                        }
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                         Toast.makeText(getApplicationContext(), "wrong username/password", Toast.LENGTH_SHORT).show();
@@ -76,18 +79,21 @@ public class Main_Tabbed extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
-                            setTemp("21", map.get("wohnzimmerKalt")); //Wohnzimmer
-                            setTemp("24", map.get("esszimmerKalt")); //Esszimmer
-                            setTemp("22", map.get("schlafzimmerKalt")); //Schlafzimmer
-                            setTemp("23", map.get("badezimmerKalt")); //Badezimmer
-                            setTemp("18", map.get("arbeitszimmerKalt")); //Arbeitszimmer
-                            findViewById(R.id.warm).post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ((TextView) findViewById(R.id.kalt)).setTextColor(Color.GREEN);
-                                    ((TextView) findViewById(R.id.warm)).setTextColor(Color.WHITE);
-                                }
-                            });
+                            if (
+                                    setTemp("21", map.get("wohnzimmerKalt")) //Wohnzimmer
+                                    && setTemp("24", map.get("esszimmerKalt")) //Esszimmer
+                                    && setTemp("22", map.get("schlafzimmerKalt")) //Schlafzimmer
+                                    && setTemp("23", map.get("badezimmerKalt")) //Badezimmer
+                                    && setTemp("18", map.get("arbeitszimmerKalt")) //Arbeitszimmer
+                            ) {
+                                findViewById(R.id.warm).post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ((TextView) findViewById(R.id.kalt)).setTextColor(Color.GREEN);
+                                        ((TextView) findViewById(R.id.warm)).setTextColor(Color.WHITE);
+                                    }
+                                });
+                            }
                         } catch (NullPointerException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "wrong username/password", Toast.LENGTH_SHORT).show();
@@ -99,6 +105,10 @@ public class Main_Tabbed extends AppCompatActivity {
             case R.id.settings:
                 Main_Tabbed.this.startActivity(new Intent(Main_Tabbed.this, SettingsActivity.class));
                 return true;
+
+            /*case R.id.alarm:
+                Main_Tabbed.this.startActivity(new Intent(Main_Tabbed.this, AlarmSetter.class));
+                return true;*/
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -146,7 +156,7 @@ public class Main_Tabbed extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-    private void setTemp(String address, String temp) {
+    private boolean setTemp(String address, String temp) {
         Log.v(TAG, "setTemp");
         temp = temp.replaceAll("[^0-9]", "");
         if (temp.length() < 3) temp += "0";
@@ -157,8 +167,11 @@ public class Main_Tabbed extends AppCompatActivity {
             connection.setRequestProperty("Authorization", "Basic " + encoding);
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             in.close();
+            Log.v(TAG, "return true");
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
     }
 

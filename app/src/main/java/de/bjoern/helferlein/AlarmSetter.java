@@ -21,18 +21,16 @@ public class AlarmSetter extends AppCompatActivity { //TODO
     private int zimmer_id;
     private Spinner dropdown;
     private Button ok, cancel;
+    private EditText editTime, editTemp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
         dropdown = (Spinner) findViewById(R.id.spinner);
-        m = (EditText) findViewById(R.id.m_0);
-        h = (EditText) findViewById(R.id.h_0);
-        dom = (EditText) findViewById(R.id.dom_0);
-        mon = (EditText) findViewById(R.id.mon_0);
-        dow = (EditText) findViewById(R.id.dow_0);
-        temp = (EditText) findViewById(R.id.temp_0);
+        editTime = (EditText) findViewById(R.id.edit_time);
+        editTemp = (EditText) findViewById(R.id.edit_temp);
+
         /*HashMap<Integer, String> map = new HashMap<>();
         map.put(17, "Arbeitszimmer");
         map.put(22, "Badezimmer");
@@ -81,42 +79,18 @@ public class AlarmSetter extends AppCompatActivity { //TODO
 
     public void setAlarm(Context context)
     {
-        int interval = 0;
+        //int interval = 0;
+        String time = editTime.getText().toString();
+        int temp = Integer.parseInt(editTemp.getText().toString());
         final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time.substring(0,1)));
+        calendar.set(Calendar.MINUTE, Integer.parseInt(time.substring(3,4)));
         Intent i = new Intent(context, AlarmReceiver.class);
         i.putExtra("zimmer", zimmer_id);
-        i.putExtra("temp", temp.getText().toString());
+        i.putExtra("temp", temp);
+        i.putExtra("calendar", calendar);
         final PendingIntent pIntent = PendingIntent.getBroadcast(context, 0, i, 0); //different IDs for different alarms
-        Calendar calendar = Calendar.getInstance();
-        calendar.setFirstDayOfWeek(Calendar.SUNDAY);
-        if (!mon.getText().toString().equals("0")) calendar.set(Calendar.MONTH, Integer.parseInt(mon.getText().toString()));
-        if (dow.getText().toString().equals("0")) {
-            interval = 1000 * 60 * 60 * 24;
-        } else {
-            calendar.set(Calendar.DAY_OF_WEEK, Integer.parseInt(dow.getText().toString()));
-        }
-        if (dom.getText().toString().equals("0")) {
-            interval = 1000 * 60 * 60 * 24;
-        } else {
-            calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dom.getText().toString()));
-        }
-        if (h.getText().toString().equals("0")) {
-            interval = 1000 * 60 * 60;
-        } else {
-            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(h.getText().toString()));
-        }
-        if (m.getText().toString().equals("0")) {
-            interval = 1000 * 60;
-        } else {
-            calendar.set(Calendar.MINUTE, Integer.parseInt(m.getText().toString()));
-        }
-        if (interval != 0) {
-            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), interval, pIntent);
-            Toast.makeText(context, "setRepeating " + Integer.toString(interval), Toast.LENGTH_SHORT).show();
-        } else {
-            am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pIntent);
-            Toast.makeText(context, "setExact " + Long.toString(calendar.getTimeInMillis()), Toast.LENGTH_SHORT).show();
-        }
 
         /*cancel.setOnClickListener(new View.OnClickListener() {
             @Override

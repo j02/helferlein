@@ -30,7 +30,7 @@ public class AlarmReceiver extends BroadcastReceiver { //TODO
 
         // Put here YOUR code.
         String zimmer = Integer.toString(intent.getIntExtra("zimmer", 0));
-        String temp = intent.getStringExtra("temp");
+        int temp = intent.getIntExtra("temp", 0);
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.icon)
