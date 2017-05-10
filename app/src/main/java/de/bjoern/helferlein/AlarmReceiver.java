@@ -48,7 +48,7 @@ public class AlarmReceiver extends BroadcastReceiver { //TODO
         String encoding = Base64.encodeToString((username + ":" + password).getBytes(), Base64.NO_WRAP);
         HttpURLConnection connection;
         try {
-            connection = (HttpURLConnection) new URL("http://www.bjoern-b.de/home-automation/status_table.php?action=set_temperature&address=" + address + "&temperature=" + temp).openConnection();
+            connection = (HttpURLConnection) new URL("https://www.bjoern-b.de/home-automation/status_table.php?action=set_temperature&address=" + address + "&temperature=" + temp).openConnection();
             connection.setRequestProperty("Authorization", "Basic " + encoding);
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             in.close();

@@ -184,7 +184,7 @@ public abstract class Zimmer_Fragment extends Fragment {
         String encoding = Base64.encodeToString((username + ":" + password).getBytes(), Base64.NO_WRAP);
         HttpURLConnection connection;
         try {
-            connection = (HttpURLConnection) new URL("http://www.bjoern-b.de/home-automation/had_get_json.php").openConnection();
+            connection = (HttpURLConnection) new URL("https://www.bjoern-b.de/home-automation/had_get_json.php").openConnection();
             connection.setRequestProperty("Authorization", "Basic " + encoding);
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             StringBuilder sb = new StringBuilder();
@@ -209,7 +209,7 @@ public abstract class Zimmer_Fragment extends Fragment {
         String encoding = Base64.encodeToString((username + ":" + password).getBytes(), Base64.NO_WRAP);
         HttpURLConnection connection;
         try {
-            connection = (HttpURLConnection) new URL("http://www.bjoern-b.de/home-automation/status_table.php?action=set_" + relais + "&address=" + address).openConnection();
+            connection = (HttpURLConnection) new URL("https://www.bjoern-b.de/home-automation/status_table.php?action=set_" + relais + "&address=" + address).openConnection();
             connection.setRequestProperty("Authorization", "Basic " + encoding);
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             in.close();
@@ -231,7 +231,7 @@ public abstract class Zimmer_Fragment extends Fragment {
         String encoding = Base64.encodeToString((username + ":" + password).getBytes(), Base64.NO_WRAP);
         HttpURLConnection connection;
         try {
-            connection = (HttpURLConnection) new URL("http://www.bjoern-b.de/home-automation/status_table.php?action=set_temperature&address=" + address + "&temperature=" + temp).openConnection();
+            connection = (HttpURLConnection) new URL("https://www.bjoern-b.de/home-automation/status_table.php?action=set_temperature&address=" + address + "&temperature=" + temp).openConnection();
             connection.setRequestProperty("Authorization", "Basic " + encoding);
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             in.close();
